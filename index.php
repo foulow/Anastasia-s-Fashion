@@ -21,7 +21,7 @@ if(!isset($p)){
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<title>Tienda Online</title>
+	<title>Anastasia's Fashion</title>
 </head>
 <body>
 	<div class="header">
