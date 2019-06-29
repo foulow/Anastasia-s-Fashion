@@ -44,8 +44,8 @@ if(!isset($p)){
 			<?php
 		}
 		?>
-		<a href="admin/">Panel Admin</a>
 		<!--
+		<a href="admin/">Panel Admin</a>
 		<a href="?p=admin">Administrador</a>
 		-->
 
