@@ -1,149 +1,43 @@
 <?php
-include "configs/config.php";
-include "configs/funciones.php";
-	
-if(!isset($p)){
-	$p = "principal";
-}else{
-	$p = $p;
-}
-
+	include "configs/config.php";
+	include "configs/funciones.php";
+		
+	if(!isset($p)){
+		$p = "principal";
+	}else{
+		$p = $p;
+	}
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Anastasia's Fashion</title>
-	<meta charset="utf-8"/>
-	<link rel="stylesheet" href="css/estilo.css"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-</head>
-<body>
-	<div class="header">
-		Tienda Online
-	</div>
-	<div class="menu">
-		<a href="?p=principal">Principal</a>
-		<a href="?p=productos">Productos</a>
-		<a href="?p=ofertas">Ofertas</a>
-		<?php
-		if(isset($_SESSION['id_cliente'])){
-		?>
-		<a href="?p=carrito">Mi Carrito</a>
-		<a href="?p=miscompras">Mis Compras</a>
-		<?php
-		}else{
-			?>
-				<a href="?p=login">Iniciar Sesion</a>
-				<a href="?p=registro">Registrate</a>
+	<head>
+		<title>Anastasia's Fashion</title>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="css/estilo.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	</head>
+	<body>
+		<?php include_once ("vistas/header.php"); ?>
+		<div class="cuerpo">
 			<?php
-		}
-		?>
-		<!--
-		<a href="admin/">Panel Admin</a>
-		<a href="?p=admin">Administrador</a>
-		-->
-
-		<?php
-			if(isset($_SESSION['id_cliente'])){
-		?>
-
-		<a class="pull-right subir" href="?p=salir">Salir</a>
-		<a class="pull-right subir" href="#"><?=nombre_cliente($_SESSION['id_cliente'])?></a>
-
-		<?php
-			}
-		?>
-	</div>
-	<div class="cuerpo">
-		<?php
-			if(file_exists("modulos/".$p.".php")){
-				include "modulos/".$p.".php";
-			}else{
-				echo "<i>No se ha encontrado el modulo <b>".$p."</b> <a href='./'>Regresar</a></i>";
-			}
-		?>
-	</div>
-
-
-	<div class="carritot" onclick="minimizer()">
-		Carrito de compra
-		<input type="hidden" id="minimized" value="0"/>
-	</div>
-
-	<div class="carritob">
-
-		<table class="table table-striped">
-	<tr>
-		<th>Nombre del producto</th>
-		<th>Cantidad</th>
-		<th>Precio </th>
-	</tr>
-<?php
-$id_cliente = clear($_SESSION['id_cliente']);
-$q = $mysqli->query("SELECT * FROM carro WHERE id_cliente = '$id_cliente'");
-$monto_total = 0;
-while($r = mysqli_fetch_array($q)){
-	$q2 = $mysqli->query("SELECT * FROM productos WHERE id = '".$r['id_producto']."'");
-	$r2 = mysqli_fetch_array($q2);
-
-	$preciototal = 0;
-			if($r2['oferta']>0){
-				if(strlen($r2['oferta'])==1){
-					$desc = "0.0".$r2['oferta'];
+				if(file_exists("modulos/".$p.".php")){
+					include "modulos/".$p.".php";
 				}else{
-					$desc = "0.".$r2['oferta'];
+					echo "<i>No se ha encontrado el modulo <b>".$p."</b> <a href='./'>Regresar</a></i>";
 				}
-
-				$preciototal = $r2['price'] -($r2['price'] * $desc);
-			}else{
-				$preciototal = $r2['price'];
-			}
-
-	$nombre_producto = $r2['name'];
-
-	$cantidad = $r['cant'];
-
-	$precio_unidad = $r2['price'];
-	$precio_total = $cantidad * $preciototal;
-	$imagen_producto = $r2['imagen'];
-
-	$monto_total = $monto_total + $precio_total;
-
-	
-
-	?>
-		<tr>
-			<td><?=$nombre_producto?></td>
-			<td><?=$cantidad?></td>
-			<td><?=$precio_unidad?> <?=$divisa?></td>
-		</tr>
-	<?php
-}
-?>
-</table>
-<br>
-<span>Monto Total: <b class="text-green"><?=$monto_total?> <?=$divisa?></b></span>
-
-<br><br>
-<form method="post" action="?p=carrito">
-	<input type="hidden" name="monto_total" value="<?=$monto_total?>"/>
-	<button class="btn btn-primary" type="submit" name="finalizar"><i class="fa fa-check"></i> Finalizar Compra</button>
-</form>
-
-	</div>
-
-	<div class="footer">
-		Copyright AnySlehider &copy; <?=date("Y")?>
-	</div>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>	
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="js/app.js"></script>
-
-</body>
+			?>
+		</div>
+		<?php
+			include_once("vistas/carrito.php");
+			include_once("vistas/footer.php");
+		?>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>	
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="js/app.js"></script>
+	</body>
 </html>
 
