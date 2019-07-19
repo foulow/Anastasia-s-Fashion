@@ -16,10 +16,10 @@ if(!isset($p)){
 	<link rel="stylesheet" href="css/estilo.css"/>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 	<link rel="stylesheet" href="fontawesome/css/all.css"/>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="fontawesome/js/all.js"></script>
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<title>Anastasia's Fashion</title>
 </head>
@@ -141,28 +141,7 @@ while($r = mysqli_fetch_array($q)){
 	<div class="footer">
 		Copyright AnySlehider &copy; <?=date("Y")?>
 	</div>
-
-
 </body>
 </html>
 
-<script type="text/javascript">
-	
-	function minimizer(){
-
-		var minimized = $("#minimized").val();
-
-		if(minimized == 0){
-			//mostrar
-			$(".carritot").css("bottom","350px");
-			$(".carritob").css("bottom","0px");
-			$("#minimized").val('1');
-		}else{
-			//minimizar
-
-			$(".carritot").css("bottom","0px");
-			$(".carritob").css("bottom","-350px");
-			$("#minimized").val('0');
-		}
-	}
-</script>
+<script type="text/javascript" src="js/app.js"></script>
