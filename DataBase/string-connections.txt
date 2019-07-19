@@ -1,4 +1,5 @@
 phpMyAdmin: https://mysql.site4now.net/
 Database Servername: mysql5021.site4now.net
-Database Username: a4b2c2_issaul
+Database Username: a4b687_tienda
 Database Password: generacion456
+Database Name: db_a4b687_tienda

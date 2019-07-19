@@ -1,10 +1,10 @@
 <?php
 
 
-$host_mysql = "localhost";
-$user_mysql = "root";
-$pass_mysql = "";
-$db_mysql = "tienda";
+$host_mysql = "mysql5021.site4now.net";
+$user_mysql = "a4b687_tienda";
+$pass_mysql = "generacion456";
+$db_mysql = "db_a4b687_tienda";
 $mysqli = mysqli_connect($host_mysql,$user_mysql,$pass_mysql,$db_mysql);
 	
 
